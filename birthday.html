@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, My Love 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF6F1;
+    --rose: #E8C4C4;
+    --rose-deep: #D4A0A0;
+    --sage: #A8B5A2;
+    --sage-light: #C8D4C2;
+    --ink: #2C2C2C;
+    --muted: #7A6A6A;
+    --soft: #B8A9A9;
+    --paper: #F5EFE8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── FADE IN ANIMATION ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ══════════════════════════════
+     SECTION 1 — HERO
+  ══════════════════════════════ */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: radial-gradient(ellipse at 60% 40%, #F0E4DA 0%, var(--cream) 70%);
+    overflow: hidden;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: var(--rose);
+    opacity: 0.15;
+    filter: blur(60px);
+  }
+
+  .hero-date {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 14vw, 10rem);
+    font-weight: 300;
+    line-height: 0.9;
+    color: var(--ink);
+    animation: fadeUp 1.2s ease 0.4s both;
+    position: relative;
+  }
+
+  .hero-name span {
+    display: block;
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  .hero-subtitle {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--muted);
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .hero-heart {
+    margin-top: 3rem;
+    font-size: 2rem;
+    animation: heartbeat 2s ease-in-out infinite, fadeUp 1s ease 1.2s both;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    animation: fadeUp 1s ease 1.5s both;
+  }
+
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--soft);
+  }
+
+  .scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--soft), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.2); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.1); }
+    56% { transform: scale(1); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.3); }
+  }
+
+  /* ── CONFETTI ── */
+  .confetti-piece {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ══════════════════════════════
+     SECTION SHARED
+  ══════════════════════════════ */
+  section {
+    padding: 5rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 3rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--rose);
+    margin: 0 auto 4rem;
+  }
+
+  /* ══════════════════════════════
+     SECTION 2 — TIMELINE
+  ══════════════════════════════ */
+  #timeline {
+    max-width: 800px;
+  }
+
+  .timeline-wrap {
+    position: relative;
+    padding: 1rem 0;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rose) 10%, var(--rose) 90%, transparent);
+    transform: translateX(-50%);
+  }
+
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    margin-bottom: 3rem;
+    align-items: center;
+  }
+
+  .timeline-entry:nth-child(odd) .t-card { grid-column: 1; text-align: right; padding-right: 2rem; }
+  .timeline-entry:nth-child(odd) .t-empty { grid-column: 3; }
+  .timeline-entry:nth-child(even) .t-card { grid-column: 3; text-align: left; padding-left: 2rem; }
+  .timeline-entry:nth-child(even) .t-empty { grid-column: 1; }
+
+  .t-dot {
+    grid-column: 2;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--rose-deep);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 3px var(--rose);
+    justify-self: center;
+    align-self: center;
+  }
+
+  .t-card {
+    background: var(--paper);
+    border: 1px solid rgba(232, 196, 196, 0.3);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .t-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212, 160, 160, 0.15);
+  }
+
+  .t-date {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 0.3rem;
+  }
+
+  .t-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .t-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════
+     SECTION 3 — PHOTO MEMORY BOOK
+  ══════════════════════════════ */
+  #memories {
+    max-width: 100%;
+    padding: 5rem 0;
+    overflow: hidden;
+  }
+
+  #memories .inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .photo-scroll {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem 2rem 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+
+  .photo-scroll:active { cursor: grabbing; }
+  .photo-scroll::-webkit-scrollbar { display: none; }
+
+  .photo-card {
+    flex: 0 0 280px;
+    scroll-snap-align: center;
+    background: white;
+    border-radius: 4px;
+    padding: 12px 12px 20px;
+    box-shadow: 3px 4px 20px rgba(120, 90, 90, 0.12), 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .photo-card:nth-child(odd)  { transform: rotate(-1.5deg); }
+  .photo-card:nth-child(even) { transform: rotate(1.2deg); }
+  .photo-card:hover { transform: rotate(0deg) scale(1.03) !important; z-index: 10; }
+
+  .photo-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 2px;
+    display: block;
+  }
+
+  .photo-caption {
+    margin-top: 10px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════
+     SECTION 4 — REASONS
+  ══════════════════════════════ */
+  #reasons {
+    max-width: 700px;
+  }
+
+  .reason-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .reason-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(232, 196, 196, 0.3);
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reason-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reason-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--rose);
+    line-height: 1;
+    min-width: 2.5rem;
+  }
+
+  .reason-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════
+     SECTION 5 — MUSIC
+  ══════════════════════════════ */
+  #music {
+    background: var(--paper);
+    max-width: 100%;
+    padding: 5rem 1.5rem;
+  }
+
+  #music .inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .vinyl-wrap {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .vinyl {
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      #1a1a1a 0deg, #2a2a2a 30deg, #1a1a1a 60deg, #2a2a2a 90deg,
+      #1a1a1a 120deg, #2a2a2a 150deg, #1a1a1a 180deg, #2a2a2a 210deg,
+      #1a1a1a 240deg, #2a2a2a 270deg, #1a1a1a 300deg, #2a2a2a 330deg, #1a1a1a 360deg
+    );
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    animation: spin 8s linear infinite paused;
+    position: relative;
+  }
+
+  .vinyl::after {
+    content: '';
+    position: absolute;
+    inset: 35%;
+    border-radius: 50%;
+    background: var(--rose-deep);
+  }
+
+  .vinyl.playing { animation-play-state: running; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .music-info { flex: 1; min-width: 200px; }
+
+  .music-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.5rem;
+  }
+
+  .music-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  /* REPLACE: Swap this Spotify embed src with your real playlist URL */
+  .spotify-wrap iframe {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* ══════════════════════════════
+     SECTION 6 — THE LETTER
+  ══════════════════════════════ */
+  #letter {
+    max-width: 640px;
+  }
+
+  .letter-paper {
+    background: white;
+    border: 1px solid rgba(232, 196, 196, 0.4);
+    border-radius: 4px;
+    padding: clamp(2rem, 6vw, 4rem);
+    box-shadow: 0 4px 40px rgba(180, 140, 140, 0.08), 2px 3px 0 rgba(232, 196, 196, 0.3);
+    position: relative;
+  }
+
+  .letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 3rem; right: 3rem;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--rose), transparent);
+  }
+
+  .letter-date {
+    font-size: 0.75rem;
+    color: var(--soft);
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+
+  .letter-body {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  /* REPLACE: Replace the paragraph text below with your actual letter */
+  .letter-body p { margin-bottom: 1.2rem; }
+
+  .letter-sign {
+    margin-top: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--muted);
+  }
+
+  .wax-seal {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(180,100,100,0.3));
+  }
+
+  /* ══════════════════════════════
+     SECTION 7 — FOOTER
+  ══════════════════════════════ */
+  #footer {
+    text-align: center;
+    padding: 4rem 1.5rem 5rem;
+    border-top: 1px solid rgba(232, 196, 196, 0.3);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rose-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 2rem;
+  }
+
+  .footer-note {
+    font-size: 0.85rem;
+    color: var(--soft);
+  }
+
+  /* ══════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════ */
+  @media (max-width: 600px) {
+    .timeline-line { left: 16px; }
+    .timeline-entry {
+      grid-template-columns: 32px 1fr;
+      grid-template-rows: auto;
+    }
+    .timeline-entry .t-dot { grid-column: 1; grid-row: 1; }
+    .timeline-entry:nth-child(odd) .t-card,
+    .timeline-entry:nth-child(even) .t-card {
+      grid-column: 2; grid-row: 1;
+      text-align: left;
+      padding: 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .timeline-entry .t-empty { display: none; }
+    .vinyl-wrap { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ SECTION 1: HERO ══ -->
+<div id="hero">
+  <p class="hero-date">May 1st · The day you came into this world</p>
+  <!-- REPLACE: Change "Her Name" to her actual name -->
+  <h1 class="hero-name">
+    Happy Birthday,
+    <span>My Love</span>
+  </h1>
+  <p class="hero-subtitle">There's no one else like you. There never will be.</p>
+  <div class="hero-heart" id="heartBtn" title="Click me 💕">🤍</div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2: TIMELINE ══ -->
+<section id="timeline">
+  <p class="section-label fade-in">our story</p>
+  <h2 class="section-title fade-in">Every moment<br><em>that led to now</em></h2>
+  <div class="timeline-wrap">
+    <div class="timeline-line"></div>
+
+    <!-- REPLACE: Swap each entry's date, title, and description with your real memories -->
+    <div class="timeline-entry fade-in">
+      <div class="t-card">
+        <p class="t-date"><!-- REPLACE: e.g. March 2023 -->[Date]</p>
+        <p class="t-title">The Beginning</p>
+        <p class="t-desc"><!-- REPLACE: How you met, or your first impression --> The moment everything quietly shifted. I didn't know it then, but you had already changed everything.</p>
+      </div>
+      <div class="t-dot"></div>
+      <div class="t-empty"></div>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <div class="t-empty"></div>
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <p class="t-date"><!-- REPLACE: e.g. April 2023 -->[Date]</p>
+        <p class="t-title">First time I knew</p>
+        <p class="t-desc"><!-- REPLACE: The moment you realized you loved her --> There was a specific moment — you probably don't even remember it — when I just knew. It hit me quietly and completely.</p>
+      </div>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <div class="t-card">
+        <p class="t-date"><!-- REPLACE: e.g. July 2023 -->[Date]</p>
+        <p class="t-title">A day I'll never forget</p>
+        <p class="t-desc"><!-- REPLACE: A specific unforgettable memory --> Some days stay with you long after they're over. This was one of those. Because of you.</p>
+      </div>
+      <div class="t-dot"></div>
+      <div class="t-empty"></div>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <div class="t-empty"></div>
+      <div class="t-dot"></div>
+      <div class="t-card">
+        <p class="t-date"><!-- REPLACE: e.g. December 2023 -->[Date]</p>
+        <p class="t-title">When everything changed</p>
+        <p class="t-desc"><!-- REPLACE: A turning point in the relationship --> Before this, life was fine. After this, life made sense. That's what you do to my world.</p>
+      </div>
+    </div>
+
+    <div class="timeline-entry fade-in">
+      <div class="t-card" style="background: linear-gradient(135deg, #FAF0F0, white); border-color: var(--rose);">
+        <p class="t-date">May 1st, 2025</p>
+        <p class="t-title">Today 🤍</p>
+        <p class="t-desc">The story isn't finished. This is just my favourite chapter so far.</p>
+      </div>
+      <div class="t-dot" style="background: var(--rose-deep); box-shadow: 0 0 0 5px rgba(232,196,196,0.4);"></div>
+      <div class="t-empty"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 3: PHOTO MEMORY BOOK ══ -->
+<section id="memories" style="padding: 5rem 0;">
+  <div class="inner">
+    <p class="section-label fade-in">photo memory book</p>
+    <h2 class="section-title fade-in">The little moments<br><em>I keep going back to</em></h2>
+    <p class="fade-in" style="color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; margin-top: -2rem;">← drag to explore →</p>
+  </div>
+  <!-- REPLACE: Replace each src="..." with your actual photo URLs or base64 images -->
+  <!-- REPLACE: Update each caption with your personal note -->
+  <div class="photo-scroll" id="photoScroll">
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=11" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->this one always makes me smile</p>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=22" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->you didn't know i was looking</p>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=33" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->one of the best days</p>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=44" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->the way you laughed here</p>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=55" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->i keep this one close</p>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/560/420?random=66" alt="memory">
+      <p class="photo-caption"><!-- REPLACE -->still can't believe this happened</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══ SECTION 4: REASONS ══ -->
+<section id="reasons">
+  <p class="section-label fade-in">why you</p>
+  <h2 class="section-title fade-in">Some of the<br><em>infinite reasons</em></h2>
+  <!-- REPLACE: Replace all reason text with your own personal reasons -->
+  <ul class="reason-list">
+    <li class="reason-item"><span class="reason-num">01</span><span class="reason-text"><!-- REPLACE -->the way you laugh at your own jokes before you even finish telling them</span></li>
+    <li class="reason-item"><span class="reason-num">02</span><span class="reason-text"><!-- REPLACE -->how you make every room feel warmer just by being in it</span></li>
+    <li class="reason-item"><span class="reason-num">03</span><span class="reason-text"><!-- REPLACE -->your strength — the quiet kind, the kind you don't even see in yourself</span></li>
+    <li class="reason-item"><span class="reason-num">04</span><span class="reason-text"><!-- REPLACE -->the way you say my name. just that. only that.</span></li>
+    <li class="reason-item"><span class="reason-num">05</span><span class="reason-text"><!-- REPLACE -->how deeply you feel things, even when it costs you</span></li>
+    <li class="reason-item"><span class="reason-num">06</span><span class="reason-text"><!-- REPLACE -->the version of myself I am when I'm with you</span></li>
+    <li class="reason-item"><span class="reason-num">07</span><span class="reason-text"><!-- REPLACE -->everything you don't even know about yourself — all of it</span></li>
+  </ul>
+</section>
+
+<!-- ══ SECTION 5: MUSIC ══ -->
+<section id="music" style="background: var(--paper); max-width: 100%; padding: 5rem 1.5rem;">
+  <div class="inner" style="max-width: 800px; margin: 0 auto;">
+    <div class="vinyl-wrap fade-in">
+      <div class="vinyl" id="vinyl"></div>
+      <div class="music-info">
+        <p class="music-label">a playlist</p>
+        <p class="music-title">"songs I think of<br>when I think of you"</p>
+        <!-- REPLACE: Replace the src URL below with your actual Spotify playlist embed URL -->
+        <!-- To get embed URL: Open Spotify → right-click playlist → Share → Embed playlist → copy src -->
+        <div class="spotify-wrap">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/37i9dQZF1DX2sUQwD7tbmL?utm_source=generator&theme=0"
+            width="100%" height="152" frameBorder="0" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 6: THE LETTER ══ -->
+<section id="letter">
+  <p class="section-label fade-in">just for you</p>
+  <h2 class="section-title fade-in">A letter<br><em>from me</em></h2>
+  <div class="letter-paper fade-in">
+    <p class="letter-date">May 1st, 2025 · Your Birthday</p>
+    <!-- REPLACE: Delete everything between these comments and write your actual letter -->
+    <div class="letter-body">
+      <p>My love,</p>
+      <p>I've been thinking about what to say to you today. The truth is, some feelings are too big for words — and you're one of them.</p>
+      <p>You showed up in my life and made it make sense in a way it never quite did before. Not in a dramatic way. In the quiet, everyday kind of way that matters more than anything.</p>
+      <p>Watching you exist — the way you think, the way you care, the way you love things fully — is one of my favourite things. I hope you know how remarkable you are. Not just to me. Just as a person. Just as you.</p>
+      <p>I don't know what the rest of this year holds. But I know I want to figure it out beside you. That feels like enough. That feels like everything.</p>
+      <p>Happy Birthday. Thank you for being born. Thank you for being you. Thank you for choosing me.</p>
+    </div>
+    <!-- REPLACE: Update the sign-off with your name and hers -->
+    <p class="letter-sign">With everything I have, — <em>Your Name</em> 🤍</p>
+    <!-- END REPLACE -->
+    <div class="wax-seal">🕊️</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 7: FOOTER ══ -->
+<footer id="footer">
+  <!-- REPLACE: Change "My Love" to her actual name -->
+  <p class="footer-name">My Love</p>
+  <p class="footer-sub">May 1st · Her Day</p>
+  <p class="footer-note">Made with love, for you. 🤍</p>
+</footer>
+
+<script>
+  // ── SCROLL FADE-IN ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ── REASON ITEMS (staggered) ──
+  const reasonObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const items = e.target.querySelectorAll('.reason-item');
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 120);
+        });
+        reasonObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  const reasonList = document.querySelector('.reason-list');
+  if (reasonList) reasonObs.observe(reasonList);
+
+  // ── PHOTO DRAG SCROLL ──
+  const scroll = document.getElementById('photoScroll');
+  let isDown = false, startX, scrollLeft;
+  scroll.addEventListener('mousedown', e => {
+    isDown = true;
+    startX = e.pageX - scroll.offsetLeft;
+    scrollLeft = scroll.scrollLeft;
+  });
+  scroll.addEventListener('mouseleave', () => isDown = false);
+  scroll.addEventListener('mouseup', () => isDown = false);
+  scroll.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scroll.offsetLeft;
+    scroll.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+
+  // ── CONFETTI ON HEART CLICK ──
+  const heart = document.getElementById('heartBtn');
+  const colors = ['#E8C4C4', '#A8B5A2', '#FAF6F1', '#D4A0A0', '#C8D4C2', '#F5C6C6'];
+
+  heart.addEventListener('click', () => {
+    heart.textContent = '❤️';
+    setTimeout(() => heart.textContent = '🤍', 2000);
+
+    for (let i = 0; i < 60; i++) {
+      setTimeout(() => {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.cssText = `
+          left: ${Math.random() * 100}vw;
+          top: -10px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          width: ${Math.random() * 8 + 4}px;
+          height: ${Math.random() * 8 + 4}px;
+          border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+          animation-duration: ${Math.random() * 2 + 2}s;
+          animation-delay: ${Math.random() * 0.5}s;
+        `;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 4000);
+      }, i * 20);
+    }
+  });
+
+  // ── VINYL SPIN ON SPOTIFY HOVER ──
+  const vinyl = document.getElementById('vinyl');
+  const spotifyWrap = document.querySelector('.spotify-wrap');
+  if (spotifyWrap && vinyl) {
+    spotifyWrap.addEventListener('mouseenter', () => vinyl.classList.add('playing'));
+    spotifyWrap.addEventListener('mouseleave', () => vinyl.classList.remove('playing'));
+  }
+</script>
+</body>
+</html>
