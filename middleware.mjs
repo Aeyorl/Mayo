@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server';
-
 const UNLOCK_AT = Date.parse('2026-05-01T00:00:00+01:00');
 
 function isUnlocked() {
@@ -7,29 +5,28 @@ function isUnlocked() {
 }
 
 export default function middleware(request) {
-  const { pathname } = request.nextUrl;
+  const url = new URL(request.url);
+  const { pathname } = url;
 
   if (
     pathname === '/locked.html' ||
     pathname === '/favicon.ico' ||
     pathname.startsWith('/.well-known')
   ) {
-    return NextResponse.next();
+    return;
   }
 
   if (isUnlocked()) {
-    return NextResponse.next();
+    return;
   }
 
   if (pathname === '/' || pathname.endsWith('.html')) {
-    return NextResponse.rewrite(new URL('/locked.html', request.url));
+    return Response.redirect(new URL('/locked.html', request.url), 307);
   }
 
   if (pathname.startsWith('/assets/')) {
-    return new NextResponse('Not found', { status: 404 });
+    return new Response('Not found', { status: 404 });
   }
-
-  return NextResponse.next();
 }
 
 export const config = {
