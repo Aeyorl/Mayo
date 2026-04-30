@@ -53,9 +53,8 @@ body > :not(#bgPhotos):not(script) {
   height: auto;
   opacity: 0;
   filter: blur(14px) saturate(0.72);
-  transform: translate3d(0, 0, 0) rotate(var(--bg-photo-rotation, 0deg));
-  transition: opacity 1.8s ease;
-  animation: bgPhotoDrift var(--bg-photo-duration, 14s) ease-in-out infinite alternate;
+  transform: translate3d(var(--bg-photo-start-x, 0), var(--bg-photo-start-y, 0), 0) rotate(var(--bg-photo-rotation, 0deg));
+  animation: bgPhotoSlideAway var(--bg-photo-duration, 14s) ease-in-out infinite;
   animation-delay: var(--bg-photo-delay, 0s);
   will-change: transform, opacity;
 }
@@ -64,9 +63,18 @@ body > :not(#bgPhotos):not(script) {
   opacity: var(--bg-photo-opacity, 0.13);
 }
 
-@keyframes bgPhotoDrift {
-  from { transform: translate3d(0, calc(var(--bg-photo-drift, 28px) * -0.5), 0) rotate(var(--bg-photo-rotation, 0deg)); }
-  to { transform: translate3d(0, var(--bg-photo-drift, 28px), 0) rotate(var(--bg-photo-rotation, 0deg)); }
+@keyframes bgPhotoSlideAway {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--bg-photo-start-x, 0), var(--bg-photo-start-y, 48px), 0) rotate(var(--bg-photo-rotation, 0deg));
+  }
+  14%, 70% {
+    opacity: var(--bg-photo-opacity, 0.13);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--bg-photo-end-x, 0), var(--bg-photo-end-y, -140px), 0) rotate(var(--bg-photo-rotation, 0deg));
+  }
 }
 
 body::after {
@@ -898,10 +906,10 @@ body::after {
         <p class="music-title">"songs I think of<br>when I think of you"</p>
         <div class="spotify-wrap">
           <!-- REPLACE: Paste your Spotify playlist embed src URL below -->
-          <iframe src="https://open.spotify.com/embed/track/4bpyaPa1xruVgE2GtsYbIW?theme=0"
+          <iframe src="https://open.spotify.com/embed/track/4bpyaPa1xruVgE2GtsYbIW?theme=0&autoplay=1"
             width="100%" height="152" frameBorder="0" allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy" id="spotifyFrame">
+            loading="eager" id="spotifyFrame">
           </iframe>
           <p style="font-size:0.7rem; color:var(--soft); margin-top:0.5rem; font-style:italic;">← swap with your actual playlist</p>
         </div>
@@ -1049,15 +1057,61 @@ body::after {
 
 <script>
 const bgPhotoUrls = [
-  // Add, remove, or replace background photo URLs here.
+  // Auto-filled from captionless gallery photos. Add, remove, or replace URLs here.
   // Example external URL: 'https://example.com/photo-1.jpg',
   'assets/images/gallery/mayo-gallery-6028.jpg',
+  'assets/images/gallery/mayo-gallery-6030.jpg',
+  'assets/images/gallery/mayo-gallery-6033.jpg',
   'assets/images/gallery/mayo-gallery-6034.jpg',
+  'assets/images/gallery/mayo-gallery-6035.jpg',
+  'assets/images/gallery/mayo-gallery-6036.jpg',
+  'assets/images/gallery/mayo-gallery-6037.jpg',
+  'assets/images/gallery/mayo-gallery-6038.jpg',
+  'assets/images/gallery/mayo-gallery-6039.jpg',
+  'assets/images/gallery/mayo-gallery-6040.jpg',
+  'assets/images/gallery/mayo-gallery-6041.jpg',
+  'assets/images/gallery/mayo-gallery-6042.jpg',
+  'assets/images/gallery/mayo-gallery-6043.jpg',
   'assets/images/gallery/mayo-gallery-6044.jpg',
+  'assets/images/gallery/mayo-gallery-6045.jpg',
+  'assets/images/gallery/mayo-gallery-6046.jpg',
+  'assets/images/gallery/mayo-gallery-6047.jpg',
+  'assets/images/gallery/mayo-gallery-6048.jpg',
+  'assets/images/gallery/mayo-gallery-6049.jpg',
+  'assets/images/gallery/mayo-gallery-6050.jpg',
+  'assets/images/gallery/mayo-gallery-6051.jpg',
+  'assets/images/gallery/mayo-gallery-6053.jpg',
+  'assets/images/gallery/mayo-gallery-6054.jpg',
+  'assets/images/gallery/mayo-gallery-6055.jpg',
   'assets/images/gallery/mayo-gallery-6056.jpg',
+  'assets/images/gallery/mayo-gallery-6057.jpg',
+  'assets/images/gallery/mayo-gallery-6058.jpg',
+  'assets/images/gallery/mayo-gallery-6059.jpg',
+  'assets/images/gallery/mayo-gallery-6060.jpg',
+  'assets/images/gallery/mayo-gallery-6061.jpg',
+  'assets/images/gallery/mayo-gallery-6062.jpg',
+  'assets/images/gallery/mayo-gallery-6063.jpg',
+  'assets/images/gallery/mayo-gallery-6064.jpg',
   'assets/images/gallery/mayo-gallery-6069.jpg',
+  'assets/images/gallery/mayo-gallery-6070.jpg',
+  'assets/images/gallery/mayo-gallery-6071.jpg',
   'assets/images/gallery/mayo-gallery-6072.jpg',
+  'assets/images/gallery/mayo-gallery-6073.jpg',
+  'assets/images/gallery/mayo-gallery-6074.jpg',
+  'assets/images/gallery/mayo-gallery-6075.jpg',
+  'assets/images/gallery/mayo-gallery-6076.jpg',
+  'assets/images/gallery/mayo-gallery-6078.jpg',
+  'assets/images/gallery/mayo-gallery-6080.jpg',
+  'assets/images/gallery/mayo-gallery-6082.jpg',
+  'assets/images/gallery/mayo-gallery-6087.jpg',
   'assets/images/gallery/mayo-gallery-6088.jpg',
+  'assets/images/gallery/mayo-gallery-6090.jpg',
+  'assets/images/gallery/mayo-gallery-6091.jpg',
+  'assets/images/gallery/mayo-gallery-6092.jpg',
+  'assets/images/gallery/mayo-gallery-6104.jpg',
+  'assets/images/gallery/mayo-gallery-6110.jpg',
+  'assets/images/gallery/mayo-gallery-6111.jpg',
+  'assets/images/gallery/mayo-gallery-6112.jpg',
   'assets/images/gallery/mayo-gallery-6113.jpg',
 ];
 
@@ -1080,7 +1134,10 @@ function initBgPhotos() {
     const rotation = -7 + Math.random() * 14;
     const duration = 10 + Math.random() * 8;
     const opacity = 0.12 + Math.random() * 0.03;
-    const drift = 18 + Math.random() * 34;
+    const startX = -24 + Math.random() * 48;
+    const startY = 28 + Math.random() * 72;
+    const endX = -80 + Math.random() * 160;
+    const endY = -220 - Math.random() * 120;
 
     img.src = url;
     img.alt = '';
@@ -1094,7 +1151,10 @@ function initBgPhotos() {
     img.style.setProperty('--bg-photo-duration', `${duration}s`);
     img.style.setProperty('--bg-photo-delay', `${-(index * 0.9 + Math.random() * duration)}s`);
     img.style.setProperty('--bg-photo-opacity', opacity.toFixed(3));
-    img.style.setProperty('--bg-photo-drift', `${drift}px`);
+    img.style.setProperty('--bg-photo-start-x', `${startX}px`);
+    img.style.setProperty('--bg-photo-start-y', `${startY}px`);
+    img.style.setProperty('--bg-photo-end-x', `${endX}px`);
+    img.style.setProperty('--bg-photo-end-y', `${endY}px`);
 
     layer.appendChild(img);
     requestAnimationFrame(() => img.classList.add('is-visible'));
