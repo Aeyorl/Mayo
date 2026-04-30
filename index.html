@@ -333,8 +333,17 @@ body::after {
 .p-card:nth-child(4) { transform: rotate(2deg); }
 .p-card:nth-child(5) { transform: rotate(-1.5deg); }
 .p-card:nth-child(6) { transform: rotate(1deg); }
+.p-card:nth-child(7) { transform: rotate(-1deg); }
+.p-card:nth-child(4n+8) { transform: rotate(1.4deg); }
+.p-card:nth-child(4n+9) { transform: rotate(-1.2deg); }
+.p-card:nth-child(4n+10) { transform: rotate(0.8deg); }
+.p-card:nth-child(4n+11) { transform: rotate(-0.6deg); }
 .p-card:hover { transform: rotate(0deg) scale(1.04) !important; z-index: 10; box-shadow: 6px 10px 40px rgba(100,70,70,0.18); }
-.p-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border-radius: 1px; }
+.p-card img,
+.p-card video { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border-radius: 1px; background: #0E0A0A; }
+.p-card.no-caption { padding-bottom: 10px; }
+.p-card.no-caption img,
+.p-card.no-caption video { object-fit: contain; }
 .p-caption { margin-top: 10px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.78rem; color: var(--muted); text-align: center; line-height: 1.5; }
 
 /* ══════════════════════════════
@@ -728,8 +737,8 @@ body::after {
        ╚══════════════════════════════════════════════════════════════╝ -->
   <div class="photo-track" id="photoTrack">
     <div class="p-card">
-      <img src="https://picsum.photos/540/405?random=71" alt="memory 1">
-      <!-- REPLACE CAPTION 1 --> <p class="p-caption">the first night — i felt at home</p>
+      <img src="assets/images/memory-01-first-day-at-side.jpg" alt="first day at side">
+      <!-- REPLACE CAPTION 1 --> <p class="p-caption">first day at side</p>
     </div>
     <div class="p-card">
       <img src="https://picsum.photos/540/405?random=82" alt="memory 2">
@@ -740,17 +749,81 @@ body::after {
       <!-- REPLACE CAPTION 3 --> <p class="p-caption">you came anyway, you always do</p>
     </div>
     <div class="p-card">
-      <img src="https://picsum.photos/540/405?random=44" alt="memory 4">
-      <!-- REPLACE CAPTION 4 --> <p class="p-caption">our first date, i remember everything</p>
+      <img src="assets/images/memory-04-first-date.jpg" alt="first date">
+      <!-- REPLACE CAPTION 4 --> <p class="p-caption">first date</p>
     </div>
     <div class="p-card">
       <img src="https://picsum.photos/540/405?random=95" alt="memory 5">
       <!-- REPLACE CAPTION 5 --> <p class="p-caption">the crazy sneak-around era 😭</p>
     </div>
     <div class="p-card">
-      <img src="https://picsum.photos/540/405?random=16" alt="memory 6">
-      <!-- REPLACE CAPTION 6 --> <p class="p-caption">mine. always mine.</p>
+      <img src="assets/images/memory-06-favorite-pic.jpg" alt="my favorite pic of her">
+      <!-- REPLACE CAPTION 6 --> <p class="p-caption">my favorite pic of her</p>
     </div>
+    <div class="p-card">
+      <video src="assets/videos/memory-06-favorite-video.mp4" poster="assets/images/memory-06-favorite-pic.jpg" controls playsinline preload="metadata"></video>
+      <!-- REPLACE CAPTION 7 --> <p class="p-caption">my favorite video of her</p>
+    </div>
+    <div class="p-card no-caption">
+      <video src="assets/videos/memory-06-favorite-video-02.mov" poster="assets/images/memory-06-favorite-pic.jpg" controls playsinline preload="metadata"></video>
+    </div>
+    <div class="p-card no-caption">
+      <video src="assets/videos/memory-06-favorite-video-03.mp4" poster="assets/images/memory-06-favorite-pic.jpg" controls playsinline preload="metadata"></video>
+    </div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6028.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6030.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6033.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6034.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6035.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6036.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6037.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6038.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6039.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6040.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6041.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6042.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6043.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6044.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6045.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6046.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6047.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6048.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6049.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6050.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6051.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6053.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6054.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6055.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6056.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6057.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6058.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6059.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6060.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6061.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6062.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6063.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6064.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6069.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6070.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6071.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6072.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6073.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6074.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6075.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6076.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6078.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6080.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6082.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6087.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6088.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6090.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6091.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6092.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6104.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6110.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6111.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6112.jpg" alt="memory photo" loading="lazy"></div>
+    <div class="p-card no-caption"><img src="assets/images/gallery/mayo-gallery-6113.jpg" alt="memory photo" loading="lazy"></div>
   </div>
 </div>
 
@@ -788,7 +861,7 @@ body::after {
         <p class="music-title">"songs I think of<br>when I think of you"</p>
         <div class="spotify-wrap">
           <!-- REPLACE: Paste your Spotify playlist embed src URL below -->
-          <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX2sUQwD7tbmL?utm_source=generator&theme=0"
+          <iframe src="https://open.spotify.com/embed/track/4bpyaPa1xruVgE2GtsYbIW?theme=0"
             width="100%" height="152" frameBorder="0" allowfullscreen=""
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy" id="spotifyFrame">
