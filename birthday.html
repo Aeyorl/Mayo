@@ -52,7 +52,7 @@ body > :not(#bgPhotos):not(script) {
   width: var(--bg-photo-width, 240px);
   height: auto;
   opacity: 0;
-  filter: blur(14px) saturate(0.72);
+  filter: blur(0.2px) saturate(1.55) contrast(1.06);
   transform: translate3d(var(--bg-photo-start-x, 0), var(--bg-photo-start-y, 0), 0) rotate(var(--bg-photo-rotation, 0deg));
   animation: bgPhotoSlideAway var(--bg-photo-duration, 14s) ease-in-out infinite;
   animation-delay: var(--bg-photo-delay, 0s);
@@ -60,7 +60,7 @@ body > :not(#bgPhotos):not(script) {
 }
 
 .bg-photo.is-visible {
-  opacity: var(--bg-photo-opacity, 0.13);
+  opacity: var(--bg-photo-opacity, 1);
 }
 
 @keyframes bgPhotoSlideAway {
@@ -69,7 +69,7 @@ body > :not(#bgPhotos):not(script) {
     transform: translate3d(var(--bg-photo-start-x, 0), var(--bg-photo-start-y, 48px), 0) rotate(var(--bg-photo-rotation, 0deg));
   }
   14%, 70% {
-    opacity: var(--bg-photo-opacity, 0.13);
+    opacity: var(--bg-photo-opacity, 1);
   }
   100% {
     opacity: 0;
@@ -1130,10 +1130,10 @@ function initBgPhotos() {
 
   bgPhotoUrls.forEach((url, index) => {
     const img = document.createElement('img');
-    const width = 180 + Math.random() * 140;
+    const width = 220 + Math.random() * 120;
     const rotation = -7 + Math.random() * 14;
     const duration = 10 + Math.random() * 8;
-    const opacity = 0.12 + Math.random() * 0.03;
+    const opacity = 0.36;
     const startX = -24 + Math.random() * 48;
     const startY = 28 + Math.random() * 72;
     const endX = -80 + Math.random() * 160;
@@ -1220,8 +1220,26 @@ function forceUnlock() {
   unlock();
 }
 
+function restartSpotifyEmbed() {
+  const frame = document.getElementById('spotifyFrame');
+  if (!frame) return;
+  const src = frame.src;
+  frame.src = '';
+  requestAnimationFrame(() => { frame.src = src; });
+}
+
+function trySpotifyAutoplay() {
+  restartSpotifyEmbed();
+  document.getElementById('vinyl')?.classList.add('spin');
+}
+
 // Check immediately, then every second
 updateCountdown();
+window.addEventListener('load', () => {
+  setTimeout(trySpotifyAutoplay, 250);
+});
+window.addEventListener('pointerdown', trySpotifyAutoplay, { once: true, passive: true });
+window.addEventListener('keydown', trySpotifyAutoplay, { once: true });
 const cdInterval = setInterval(() => {
   const now = new Date();
   if (UNLOCK_DATE - now <= 0) {
