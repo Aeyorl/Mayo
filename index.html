@@ -33,6 +33,42 @@ body {
   overflow-x: hidden;
 }
 
+body > :not(#bgPhotos):not(script) {
+  position: relative;
+  z-index: 1;
+}
+
+#bgPhotos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.bg-photo {
+  position: absolute;
+  display: block;
+  width: var(--bg-photo-width, 240px);
+  height: auto;
+  opacity: 0;
+  filter: blur(14px) saturate(0.72);
+  transform: translate3d(0, 0, 0) rotate(var(--bg-photo-rotation, 0deg));
+  transition: opacity 1.8s ease;
+  animation: bgPhotoDrift var(--bg-photo-duration, 14s) ease-in-out infinite alternate;
+  animation-delay: var(--bg-photo-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.bg-photo.is-visible {
+  opacity: var(--bg-photo-opacity, 0.13);
+}
+
+@keyframes bgPhotoDrift {
+  from { transform: translate3d(0, calc(var(--bg-photo-drift, 28px) * -0.5), 0) rotate(var(--bg-photo-rotation, 0deg)); }
+  to { transform: translate3d(0, var(--bg-photo-drift, 28px), 0) rotate(var(--bg-photo-rotation, 0deg)); }
+}
+
 body::after {
   content: '';
   position: fixed; inset: 0;
@@ -584,6 +620,7 @@ body::after {
 </style>
 </head>
 <body>
+<div id="bgPhotos" aria-hidden="true"></div>
 
 <!-- ══════════════════════════════
      COUNTDOWN LOCK SCREEN
@@ -1011,6 +1048,71 @@ body::after {
 </footer>
 
 <script>
+const bgPhotoUrls = [
+  // Add, remove, or replace background photo URLs here.
+  // Example external URL: 'https://example.com/photo-1.jpg',
+  'assets/images/gallery/mayo-gallery-6028.jpg',
+  'assets/images/gallery/mayo-gallery-6034.jpg',
+  'assets/images/gallery/mayo-gallery-6044.jpg',
+  'assets/images/gallery/mayo-gallery-6056.jpg',
+  'assets/images/gallery/mayo-gallery-6069.jpg',
+  'assets/images/gallery/mayo-gallery-6072.jpg',
+  'assets/images/gallery/mayo-gallery-6088.jpg',
+  'assets/images/gallery/mayo-gallery-6113.jpg',
+];
+
+function initBgPhotos() {
+  const layer = document.getElementById('bgPhotos');
+  if (!layer || !bgPhotoUrls.length) return;
+
+  const pageHeight = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    window.innerHeight
+  );
+
+  layer.style.height = `${pageHeight}px`;
+  layer.innerHTML = '';
+
+  bgPhotoUrls.forEach((url, index) => {
+    const img = document.createElement('img');
+    const width = 180 + Math.random() * 140;
+    const rotation = -7 + Math.random() * 14;
+    const duration = 10 + Math.random() * 8;
+    const opacity = 0.12 + Math.random() * 0.03;
+    const drift = 18 + Math.random() * 34;
+
+    img.src = url;
+    img.alt = '';
+    img.className = 'bg-photo';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.style.left = `${Math.random() * 100}%`;
+    img.style.top = `${Math.random() * pageHeight}px`;
+    img.style.setProperty('--bg-photo-width', `${width}px`);
+    img.style.setProperty('--bg-photo-rotation', `${rotation}deg`);
+    img.style.setProperty('--bg-photo-duration', `${duration}s`);
+    img.style.setProperty('--bg-photo-delay', `${-(index * 0.9 + Math.random() * duration)}s`);
+    img.style.setProperty('--bg-photo-opacity', opacity.toFixed(3));
+    img.style.setProperty('--bg-photo-drift', `${drift}px`);
+
+    layer.appendChild(img);
+    requestAnimationFrame(() => img.classList.add('is-visible'));
+  });
+
+  syncBgPhotosToScroll();
+}
+
+function syncBgPhotosToScroll() {
+  const layer = document.getElementById('bgPhotos');
+  if (!layer) return;
+  layer.style.transform = `translate3d(0, ${-window.scrollY}px, 0)`;
+}
+
+window.addEventListener('load', initBgPhotos);
+window.addEventListener('resize', initBgPhotos);
+window.addEventListener('scroll', syncBgPhotosToScroll, { passive: true });
+
 // ══ LOCK SCREEN — COUNTDOWN ══
 const UNLOCK_DATE = new Date('2025-05-01T00:00:00'); // midnight May 1st
 
