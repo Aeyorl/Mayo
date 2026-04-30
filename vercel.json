@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "^/$",
+      "dest": "/api/page?file=index"
+    },
+    {
+      "src": "^/birthday\\.html$",
+      "dest": "/api/page?file=birthday"
+    },
+    {
+      "src": "^/assets/(.*)$",
+      "dest": "/api/asset?path=$1"
+    },
+    {
+      "handle": "filesystem"
+    }
+  ],
+  "functions": {
+    "api/*.mjs": {
+      "includeFiles": "{assets/**,index.html,birthday.html,locked.html}"
+    }
+  }
+}
