@@ -1799,6 +1799,12 @@
         <p>You always say  don't rush, God's timing is the best. And I always tell you  focus and squeeze what you
           want out of life. I think we were sent to each other for a reason. You slow me down when I need it. I push you
           forward when you need it. That's a kind of balance I don't take for granted.</p>
+        <p> Tweenties are not going to be easy, but I know we can face them together. </p>
+        <p>I'm not going to make a list of reasons why I love you. That would be impossible. But I will say this: I love
+          you for all of you. The fire and the softness. The confidence and the vulnerability. The stubbornness and the
+          sweetness. All of it.</p>
+        <p>I'm so proud of you. For everything you've overcome, for everything you are, for everything you're becoming. I
+          hope this year brings you as much joy and growth as you bring to everyone around you.</p> 
         <p>My kuku. My little angry bird. My person.</p>
         <p>Happy Birthday, Precious. The world is better because you're in it. I'm better because you're in mine.</p>
       </div>
@@ -1840,19 +1846,9 @@
            ║  3. Uncomment the <iframe> tag and paste your YouTube video ID  ║
            ╚══════════════════════════════════════════════════════════════════╝ -->
 
-        <!-- Placeholder shown until you add your video — DELETE THIS DIV when ready -->
-        <div class="video-placeholder">
-          <div class="video-placeholder-icon">🎬</div>
-          <p class="video-placeholder-text">Your video message will play here</p>
-          <p class="video-placeholder-sub">REPLACE: add your video file or YouTube link</p>
-        </div>
-
-        <!-- OPTION A: Uncomment and set src to your video file or Google Drive link -->
-        <!--
-      <video controls autoplay playsinline>
-        <source src="YOUR_VIDEO_FILE.mp4" type="video/mp4">
-      </video>
-      -->
+        <video controls playsinline preload="metadata">
+          <source src="assets/videos/birthday-message.mp4" type="video/mp4">
+        </video>
 
         <!-- OPTION B: Uncomment and replace VIDEO_ID with your YouTube video ID -->
         <!--
@@ -2267,6 +2263,14 @@ RULES:
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
     const typingInd = document.getElementById('typingIndicator');
+    const cannedReplies = {
+      "what do you love most about me?": "What I love most about you is how real you are. Your heart, your softness, your strength, and the way you carry so much love in you makes you so special to me.",
+      "do you remember when we first met?": "Yes, I do. It was our first tutorial in Adankolo. You wore an ash top and ash trousers. There's still a little secret about that day that I'll reveal to you someday.",
+      "what's your favourite memory of us?": "My favourite memory of us? Honestly, I can't even pinpoint just one. I cherish every memory with you - the laughter, the little fights, the goofy days, the serious moments, and everything in between. If I had to add mine, it's the way even the simplest moments with you always end up meaning so much to me.",
+      "what do you wish for me this year?": "I wish for you to have a year full of peace, happiness, growth, and answered prayers. I hope you become everything you dream of becoming, and I hope love surrounds you in every way.",
+      "why did you make all of this for me?": "Because you mean so much to me, and I wanted you to feel it in a way you could see and remember. I made all of this for you because loving you feels worth celebrating properly."
+    };
+    const defaultReply = "Everything here is for you, my kuku. If you ask me one of the little questions here, I'll answer it properly.";
 
     function appendMsg(text, sender) {
       const div = document.createElement('div');
@@ -2280,7 +2284,11 @@ RULES:
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    async function sendMessage(override) {
+    function normalizeQuestion(text) {
+      return text.trim().toLowerCase();
+    }
+
+    function sendMessage(override) {
       const text = override || chatInput.value.trim();
       if (!text) return;
       chatInput.value = '';
@@ -2295,29 +2303,14 @@ RULES:
       typingInd.classList.add('show');
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
-      try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            system: SYSTEM_PROMPT,
-            messages: messagesHistory
-          })
-        });
-        const data = await res.json();
-        const reply = data.content?.[0]?.text || '...';
+      setTimeout(() => {
+        const reply = cannedReplies[normalizeQuestion(text)] || defaultReply;
         messagesHistory.push({ role: 'assistant', content: reply });
         typingInd.classList.remove('show');
         appendMsg(reply, 'ayo');
-      } catch {
-        typingInd.classList.remove('show');
-        appendMsg("Something went wrong on my end 😅 — try again?", 'ayo');
-      }
-
-      sendBtn.disabled = false;
-      chatInput.focus();
+        sendBtn.disabled = false;
+        chatInput.focus();
+      }, 350);
     }
 
     function sendChip(btn) { sendMessage(btn.textContent.trim()); }
