@@ -188,18 +188,6 @@ body::after {
   50% { transform: scale(1.12); opacity: 1; }
 }
 
-/* Dev unlock button — remove before sending */
-.dev-unlock {
-  position: fixed; bottom: 1rem; right: 1rem;
-  font-size: 0.65rem; padding: 4px 10px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.3); border-radius: 20px;
-  cursor: pointer; z-index: 10001;
-  transition: opacity 0.2s;
-}
-.dev-unlock:hover { opacity: 0.8; }
-
 /* ══════════════════════════════
    UNLOCK ANIMATION
 ══════════════════════════════ */
@@ -657,8 +645,6 @@ body::after {
 </div>
 
 <!-- Dev preview button — REMOVE BEFORE SENDING TO HER -->
-<button class="dev-unlock" onclick="forceUnlock()">preview site ↗</button>
-
 <!-- ══ PETALS ══ -->
 <div class="hero-petals" id="petals"></div>
 
@@ -1164,7 +1150,7 @@ window.addEventListener('resize', initBgPhotos);
 window.addEventListener('scroll', syncBgPhotosToScroll, { passive: true });
 
 // ══ LOCK SCREEN — COUNTDOWN ══
-const UNLOCK_DATE = new Date('2025-05-01T00:00:00'); // midnight May 1st
+const UNLOCK_DATE = new Date('2026-05-01T00:00:00+01:00');
 
 function updateCountdown() {
   const now = new Date();
@@ -1203,11 +1189,6 @@ function unlock() {
   lock.classList.add('unlocked');
   document.body.style.overflow = '';
   spawnUnlockConfetti();
-}
-
-function forceUnlock() {
-  // DEV ONLY — remove the button above before sending
-  unlock();
 }
 
 function restartSpotifyEmbed() {

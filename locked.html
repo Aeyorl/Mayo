@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something is waiting for you</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf6f1;
+      --rose: #e8c4c4;
+      --rose-deep: #c9908e;
+      --ink: #1e1a1a;
+      --muted: #7a6363;
+      --soft: #b8a4a4;
+      --card: rgba(255, 255, 255, 0.72);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(232, 196, 196, 0.55), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(201, 169, 110, 0.18), transparent 28%),
+        var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .card {
+      width: min(720px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(201, 144, 142, 0.18);
+      box-shadow: 0 24px 80px rgba(120, 88, 88, 0.12);
+      border-radius: 32px;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-weight: 300;
+      line-height: 0.95;
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--rose-deep);
+      display: block;
+    }
+
+    .sub {
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.98rem;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin: 2rem 0;
+    }
+
+    .unit {
+      border: 1px solid rgba(201, 144, 142, 0.18);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.55);
+      padding: 1rem 0.65rem;
+    }
+
+    .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .label {
+      margin-top: 0.45rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .when {
+      font-size: 0.84rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hint {
+      margin-top: 1.4rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--rose-deep);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .countdown {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <p class="eyebrow">A little patience</p>
+      <h1>Something beautiful <em>is waiting for you</em></h1>
+      <p class="sub">
+        This link opens at midnight on May 1st, 2026, Lagos time.
+        Until then, your surprise is staying tucked away.
+      </p>
+
+      <div class="countdown" aria-label="countdown to unlock">
+        <div class="unit">
+          <div class="num" id="days">00</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="unit">
+          <div class="num" id="hours">00</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="unit">
+          <div class="num" id="minutes">00</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="unit">
+          <div class="num" id="seconds">00</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+
+      <p class="when">Unlocks at 12:00 AM · May 1, 2026 · Africa/Lagos</p>
+      <p class="hint">Come back when the countdown reaches zero.</p>
+    </section>
+  </main>
+
+  <script>
+    const unlockAt = new Date('2026-05-01T00:00:00+01:00').getTime();
+
+    function setValue(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = String(value).padStart(2, '0');
+    }
+
+    function updateCountdown() {
+      const diff = unlockAt - Date.now();
+
+      if (diff <= 0) {
+        window.location.replace('/');
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      setValue('days', days);
+      setValue('hours', hours);
+      setValue('minutes', minutes);
+      setValue('seconds', seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
