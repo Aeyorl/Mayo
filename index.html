@@ -112,6 +112,139 @@
       transform: translateY(0);
     }
 
+    /* ── NIGHT DATE ── */
+    #night-date-section {
+      min-height: 100svh;
+      padding: 4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: clip;
+    }
+
+    .night-date-inner {
+      width: min(100%, 660px);
+      margin: 0 auto;
+    }
+
+    #night-date-section #bgPhotos { display: none; }
+
+    .night-note {
+      min-height: min(68svh, 620px);
+      margin-top: 1.75rem;
+      padding: clamp(2rem, 7vw, 4.5rem);
+      background: #fffdfb;
+      border: 1px solid rgba(232, 196, 196, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 12px 48px rgba(90, 60, 60, 0.09), 2px 4px 0 rgba(232, 196, 196, 0.2);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      line-height: 1.9;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .night-note-line + .night-note-line { margin-top: 1.5rem; }
+
+    .night-note-line,
+    .night-date-ask {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.75s cubic-bezier(.16, 1, .3, 1), transform 0.75s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .night-note-line.visible,
+    .night-date-ask.visible { opacity: 1; transform: translateY(0); }
+
+    .night-note-line[hidden],
+    .night-date-ask[hidden] { display: none; }
+
+    .night-date-ask { margin-top: 2rem; }
+
+    .night-date-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.65rem, 6vw, 2.4rem);
+      line-height: 1.35;
+      text-wrap: balance;
+    }
+
+    .night-date-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+
+    .night-date-button {
+      min-height: 56px;
+      padding: 0.9rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font: 500 1rem 'DM Sans', sans-serif;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .night-date-button:hover { transform: translateY(-2px); }
+    .night-date-button:focus-visible { outline: 3px solid var(--rose-deep); outline-offset: 3px; }
+
+    .night-date-button.primary {
+      min-width: 148px;
+      min-height: 64px;
+      background: var(--rose-deep);
+      color: white;
+      box-shadow: 0 0 0 7px rgba(232, 196, 196, 0.23), 0 8px 28px rgba(180, 100, 100, 0.27);
+      animation: dateYesGlow 2.4s ease-in-out infinite;
+    }
+
+    .night-date-button.secondary {
+      min-width: 104px;
+      background: rgba(122, 99, 99, 0.1);
+      color: var(--muted);
+      border-color: rgba(122, 99, 99, 0.14);
+    }
+
+    .night-date-small { margin-top: 0.7rem; color: var(--muted); font-size: 0.9rem; }
+    .night-date-plan { margin-top: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
+    .night-date-love { margin-top: 1rem; color: var(--muted); font-family: 'Playfair Display', serif; font-style: italic; }
+
+    @keyframes dateYesGlow {
+      50% { box-shadow: 0 0 0 10px rgba(232, 196, 196, 0.15), 0 10px 34px rgba(180, 100, 100, 0.34); }
+    }
+
+    .night-date-heart {
+      position: fixed;
+      z-index: 10001;
+      top: 100vh;
+      pointer-events: none;
+      color: var(--rose-deep);
+      animation: nightHeartFloat 3s ease-out forwards;
+    }
+
+    @keyframes nightHeartFloat {
+      to { transform: translate3d(var(--heart-drift), -110vh, 0) rotate(18deg); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .night-date-button.primary { animation: none; }
+      .night-date-heart { display: none; }
+      .night-note-line, .night-date-ask { transition: none; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    @media (max-width: 600px) {
+      #night-date-section { padding: 4.5rem 1rem; }
+      .night-note { min-height: 68svh; padding: 2rem 1.5rem; }
+    }
+
     /* ══════════════════════════════
    COUNTDOWN LOCK SCREEN
 ══════════════════════════════ */
@@ -1761,7 +1894,7 @@
     <p class="eyebrow reveal">just for you</p>
     <h2 class="section-title reveal">A letter<br><em>from me</em></h2>
     <div class="letter-paper reveal">
-      <p class="letter-date">May 1st, 2025 · Your Birthday</p>
+      <p class="letter-date">May 1st, 2026 · Your Birthday</p>
       <div class="letter-body">
         <p>My love,</p>
         <p>I've been sitting with this for a while trying to find the right words for someone who makes words feel
@@ -1842,6 +1975,20 @@
       </div>
     </div>
   </div>
+
+  <!-- ══════════════════════════════
+     NIGHT DATE INVITATION
+══════════════════════════════ -->
+  <section id="night-date-section" aria-labelledby="night-date-label">
+    <div class="night-date-inner">
+      <p class="eyebrow" id="night-date-label">one last thing</p>
+      <div class="night-note">
+        <p class="night-note-line" id="nightNoteOne">I just wanted to remind you how special you are to me. ♥ You make even the ordinary days feel so much brighter. ♥ Thank you for being you, for your love, your care, and for always being there. ♥ I feel so lucky to have you in my life, and I love you more than words can say. ♥</p>
+        <p class="night-note-line" id="nightNoteTwo" hidden>And because of that, I'm not really sure why, but today I've been thinking a lot about cute little date nights that we can have. We could go out to dinner somewhere new, and before we order, we guess what the other person is gonna get. Then we let each other try the food we ordered, and we do the same with dessert too. ♥</p>
+      </div>
+      <div class="night-date-ask" id="nightDateAsk" aria-live="polite" hidden></div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════
      AI CHAT
@@ -2024,6 +2171,10 @@
       const diff = UNLOCK_DATE - now;
 
       if (diff <= 0) {
+        ['cdDays', 'cdHours', 'cdMins', 'cdSecs'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = '00';
+        });
         unlock();
         return;
       }
@@ -2051,9 +2202,12 @@
       setVal('cdSecs', secs);
     }
 
+    let isUnlocked = false;
     function unlock() {
+      if (isUnlocked) return;
+      isUnlocked = true;
       const lock = document.getElementById('lockScreen');
-      lock.classList.add('unlocked');
+      lock?.classList.add('unlocked');
       document.body.style.overflow = '';
       spawnUnlockConfetti();
     }
@@ -2136,6 +2290,115 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ══ NIGHT DATE NOTE + ASK ══
+    (function () {
+      const section = document.getElementById('night-date-section');
+      const noteOne = document.getElementById('nightNoteOne');
+      const noteTwo = document.getElementById('nightNoteTwo');
+      const ask = document.getElementById('nightDateAsk');
+      if (!section || !noteOne || !noteTwo || !ask) return;
+
+      let noteStep = 0;
+      let askShown = false;
+      let celebrationStarted = false;
+
+      function showAsk() {
+        if (askShown) return;
+        askShown = true;
+        ask.hidden = false;
+        ask.innerHTML = `
+          <h2 class="night-date-title">Precious, will you go on a night date with me? 🤍</h2>
+          <div class="night-date-buttons">
+            <button class="night-date-button primary" type="button" data-date-answer="yes">YES</button>
+            <button class="night-date-button secondary" type="button" data-date-answer="no">No</button>
+          </div>`;
+        requestAnimationFrame(() => ask.classList.add('visible'));
+      }
+
+      function revealNextNote() {
+        if (noteStep === 0) {
+          noteOne.classList.add('visible');
+          noteStep = 1;
+        } else if (noteStep === 1) {
+          noteTwo.hidden = false;
+          noteTwo.classList.add('visible');
+          noteStep = 2;
+          showAsk();
+        }
+      }
+
+      function showNoState() {
+        ask.classList.remove('visible');
+        setTimeout(() => {
+          ask.innerHTML = `
+            <h2 class="night-date-title">Say YES. Say YES, you feel me? 😤</h2>
+            <p class="night-date-small">Don't be stubborn, kuku.</p>
+            <div class="night-date-buttons">
+              <button class="night-date-button primary" type="button" data-date-answer="yes">YES 🤍</button>
+              <button class="night-date-button secondary" type="button" data-date-answer="yes">Yes (the other one) 🤍</button>
+            </div>`;
+          requestAnimationFrame(() => ask.classList.add('visible'));
+        }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 250);
+      }
+
+      function celebrateYes() {
+        if (celebrationStarted) return;
+        celebrationStarted = true;
+        ask.classList.remove('visible');
+        setTimeout(() => {
+          ask.innerHTML = `
+            <h2 class="night-date-title">I knew you'd say yes 🤍</h2>
+            <p class="night-date-plan">November 16, 2026 · 8:00 PM · Amak. Wear something nice.</p>
+            <p class="night-date-love">I love you. See you there.</p>`;
+          requestAnimationFrame(() => ask.classList.add('visible'));
+        }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 250);
+
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const hearts = ['♥', '♡', '🤍'];
+        for (let i = 0; i < 28; i++) {
+          setTimeout(() => {
+            const heart = document.createElement('span');
+            heart.className = 'night-date-heart';
+            heart.setAttribute('aria-hidden', 'true');
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.fontSize = `${Math.random() * 1.2 + 0.8}rem`;
+            heart.style.setProperty('--heart-drift', `${(Math.random() - 0.5) * 100}px`);
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3100);
+          }, i * 105);
+        }
+      }
+
+      section.addEventListener('click', (event) => {
+        if (event.target.closest('[data-date-answer="no"]')) showNoState();
+        if (event.target.closest('[data-date-answer="yes"]')) celebrateYes();
+      });
+
+      section.addEventListener('click', (event) => {
+        if (event.target.closest('button')) return;
+        event.stopPropagation();
+        revealNextNote();
+      });
+
+      const noteObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && noteStep === 0) {
+            noteOne.classList.add('visible');
+            noteStep = 1;
+          }
+        });
+      }, { threshold: 0.1 });
+      noteObserver.observe(section);
+
+      const secondNoteObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && noteStep === 1) revealNextNote();
+        });
+      }, { threshold: 0.7 });
+      secondNoteObserver.observe(noteOne);
+    })();
 
     // ══ REASONS STAGGER ══
     const rGrid = document.getElementById('reasonGrid');
